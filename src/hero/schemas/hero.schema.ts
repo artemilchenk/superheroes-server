@@ -25,6 +25,9 @@ export class Hero {
 
   @Prop()
   createdAt: string;
+
+  @Prop()
+  id?: string;
 }
 
 export const HeroSchema = SchemaFactory.createForClass(Hero);

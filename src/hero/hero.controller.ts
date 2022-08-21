@@ -23,31 +23,31 @@ export class HeroController {
 
     @Post('create')
     @HttpCode(201)
-    create(@Body() createHeroDto: CreateHeroDto): Promise<Hero> {
+    createOne(@Body() createHeroDto: CreateHeroDto): Promise<Hero> {
         return this.heroService.createHero(createHeroDto)
     }
 
     @Get('query')
     @HttpCode(200)
-    all(@Query() search) {
+    getAll(@Query() search) {
         return this.heroService.getAll(search)
     }
 
     @Get(':id')
     @HttpCode(200)
-    one(@Param('id') id: string): Promise<Hero> {
+    getOne(@Param('id') id: string): Promise<Hero> {
         return this.heroService.getOne(id)
     }
 
     @Delete(':id')
     @HttpCode(200)
-    delete(@Param('id') id: string): Promise<string> {
+    deleteOne(@Param('id') id: string): Promise<string> {
         return this.heroService.deleteOne(id)
     }
 
     @Put(':id')
     @HttpCode(200)
-    update(@Param('id') id: string, @Body() updateDto: UpdateHeroDto): Promise<Hero> {
+    updateOne(@Param('id') id: string, @Body() updateDto: UpdateHeroDto): Promise<Hero> {
         return this.heroService.updateHero(id, updateDto)
     }
 
@@ -65,7 +65,7 @@ export class HeroController {
 
     @Post('delete/:id')
     @HttpCode(200)
-    fileCreate(@Param('id') id: string, @Body('fileName') fileName: string,) {
+    fileDelete(@Param('id') id: string, @Body('fileName') fileName: string,) {
         return this.heroService.deleteImage(id, fileName)
     }
 }
