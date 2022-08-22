@@ -14,7 +14,7 @@ export abstract class MockModel<T> {
         }
     }
 
-    find(): { exec: () => T[] } {
+    aggregate(): { exec: () => T[] } {
         return {
             exec: (): T[] => [this.entityStub]
         }

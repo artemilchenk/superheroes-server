@@ -32,7 +32,7 @@ export class HeroRepository {
                     data: [{$skip: skip ? Number(skip) : 0}, {$limit: 5}]
                 }
             }
-        ])
+        ]).exec()
     }
 
     async createHero(hero: Hero): Promise<Hero> {

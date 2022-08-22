@@ -4,6 +4,7 @@ import {getModelToken} from "@nestjs/mongoose";
 import {Hero} from "../schemas/hero.schema";
 import {heroStub} from "./stubs/hero.stub";
 import {HeroModel} from "./support/hero.model";
+import {AggregateOptions} from "mongoose";
 
 describe('HeroRepository', () => {
     let heroRepository: HeroRepository
@@ -45,4 +46,32 @@ describe('HeroRepository', () => {
         })
     })
 
+    describe('when aggregate is called', () => {
+        let heroes: AggregateOptions
+
+        beforeEach(async () => {
+            jest.spyOn(heroModel, 'aggregate')
+            heroes = await heroRepository.getAll({searchQuery: 'something', skip: '0'})
+        })
+
+        test('then it should be called heroModel', () => {
+            expect(heroModel.aggregate).toHaveBeenCalledWith([
+                {"$match": {nickname: {$regex: 'something'}}},
+                {"$sort": {createdAt: -1}},
+                {
+                    "$facet": {
+                        metadata: [{$count: "total"}],
+                        data: [{$skip: 0}, {$limit: 5}]
+                    }
+                }
+            ])
+        })
+
+        test('then it should return a hero', () => {
+            expect(heroes).toEqual([heroStub()])
+        })
+    })
 })
+
+
+
