@@ -8,16 +8,12 @@ export abstract class MockModel<T> {
     constructorSpy(_createEntityData: T): void {
     }
 
-    findOne(): { exec: () => T } {
-        return {
-            exec: (): T => this.entityStub
-        }
+    findOne(): T {
+        return this.entityStub
     }
 
-    aggregate(): { exec: () => T[] } {
-        return {
-            exec: (): T[] => [this.entityStub]
-        }
+    aggregate(): T[] {
+        return [this.entityStub]
     }
 
     async save(): Promise<T> {

@@ -13,7 +13,7 @@ export class HeroRepository {
     }
 
     async findOne(heroFilterQuery: FilterQuery<Hero>): Promise<Hero> {
-        return this.heroModel.findOne(heroFilterQuery).exec();
+        return this.heroModel.findOne(heroFilterQuery)
     }
 
     async findByIdAndDelete(id: string){
@@ -32,7 +32,7 @@ export class HeroRepository {
                     data: [{$skip: skip ? Number(skip) : 0}, {$limit: 5}]
                 }
             }
-        ]).exec()
+        ])
     }
 
     async createHero(hero: Hero): Promise<Hero> {
